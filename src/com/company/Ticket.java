@@ -1,6 +1,9 @@
 package com.company;
 
-public class Ticket {
+import  java.time.LocalDateTime;
+
+
+public abstract class Ticket {
     private String pnr;
     private String from;
     private String to;
@@ -24,6 +27,19 @@ public class Ticket {
         this.price=price;
         this.cancelled=cancelled;
         this.seatNo=seatNo;
+    }
+    public String checkStatus(){
+        return cancelled ? "Cancelled" : "Confirmed";
+    }
+    public int getFlightDuration(){
+        LocalDateTime departureLocalDateTime = LocalDateTime.parse(departureDateTime);
+        LocalDateTime arrivalLocalDateTime = LocalDateTime.parse(arrivalDateTime);
+        return (arrivalLocalDateTime.getDayOfMonth()-departureLocalDateTime.getDayOfMonth())*24 +(arrivalLocalDateTime.getHour() - departureLocalDateTime.getHour());
+
+    }
+
+    public void cancel(){
+        cancelled=true;
     }
 
     public String getPnr() {
